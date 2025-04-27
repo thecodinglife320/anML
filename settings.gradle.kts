@@ -20,5 +20,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "anML"
-include(":app")
 include(":fd_ml")

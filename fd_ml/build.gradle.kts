@@ -54,7 +54,8 @@ dependencies {
    implementation(libs.hilt.android)
    implementation(libs.androidx.lifecycle.viewmodel.compose)
    implementation(libs.androidx.lifecycle.runtime.ktx)
-   ksp(libs.hilt.android.compiler)
+    implementation(libs.image.labeling)
+    ksp(libs.hilt.android.compiler)
 
    testImplementation(libs.junit)
    androidTestImplementation(libs.androidx.junit)

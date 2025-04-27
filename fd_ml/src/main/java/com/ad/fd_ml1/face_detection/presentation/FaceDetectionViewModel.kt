@@ -8,9 +8,11 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.util.Log
 import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ad.fd_ml1.assetsToBitmap
 import com.ad.fd_ml1.face_detection.domain.FaceDetectionUseCase
 import com.google.mlkit.vision.face.Face
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,40 +28,33 @@ class FaceDetectionViewModel @Inject constructor(
    @ApplicationContext private val context: Context,
 ) : ViewModel() {
 
-   val bitmaps =
+   private val bitmaps =
       listOf(
          "face-test.jpg",
          "face-test-2.jpg",
          "face-test-3.jpg",
-         "face-test-4.jpg",
          "face-test-5.jpg",
          "osamu-tezuka.jpg",
          "osamu-tezuka2.jpg",
          "osamu-tezuka3.jpg",
          "deo-khau-trang.jpg"
       ).map {
-         assetsToBitmap(it)
+         context.assetsToBitmap(it)
       }
 
-   private var index=0
+   private val _index = mutableIntStateOf(0)
 
    private val _bitmap =mutableStateOf(
-      bitmaps[index]
+      bitmaps[_index.intValue]
    )
+
+   val index:State<Int> get() = _index
 
    val bitmap: State<Bitmap?> get() = _bitmap
 
-   fun assetsToBitmap(fileName: String) =
-      try {
-         context.assets.open(fileName).let {
-            BitmapFactory.decodeStream(it)
-         }
-      } catch (e: IOException) {
-         e.printStackTrace()
-         null
-      }
+   val lastIndex = bitmaps.size-1
 
-   fun Bitmap.drawWithRectangle(faces: List<Face>): Bitmap? {
+   private fun Bitmap.drawWithRectangle(faces: List<Face>): Bitmap? {
       val bitmap = copy(config!!, true)
       val canvas = Canvas(bitmap)
       val paint = Paint().apply {
@@ -80,13 +75,13 @@ class FaceDetectionViewModel @Inject constructor(
    }
 
    fun goNextBitMap(){
-      index+=1
-      _bitmap.value=bitmaps[index]
+      _index.intValue +=1
+      _bitmap.value=bitmaps[_index.intValue]
    }
 
    fun goPreviousBitMap(){
-      index-=1
-      _bitmap.value=bitmaps[index]
+      _index.intValue-=1
+      _bitmap.value=bitmaps[_index.intValue]
    }
 
    fun detectFace()=
@@ -94,7 +89,6 @@ class FaceDetectionViewModel @Inject constructor(
          viewModelScope.launch {
             try {
                val faces = faceDetectionUseCase(_bitmap.value!!)
-               println(faces)
                _bitmap.value = _bitmap.value!!.drawWithRectangle(faces)
             }catch (e: Exception){
                Log.e("vm",e.message.toString())

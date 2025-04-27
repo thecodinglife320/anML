@@ -1,4 +1,4 @@
-package com.ad.fd_ml1.face_detection.presentation
+package com.ad.fd_ml1.image_label.presentaion
 
 import android.graphics.Bitmap
 import androidx.compose.foundation.Image
@@ -21,39 +21,25 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Preview
 @Composable
-fun FaceDetectionScreen(
+fun ImageLabelScreen(
     modifier: Modifier = Modifier,
-    vm: FaceDetectionViewModel = viewModel()
+    vm: ImageLabelViewModel = viewModel()
 ) {
     Column(
         modifier
     ) {
 
-        ImageToDetect(
+        ImageToLabel(
             bitmap =  vm.bitmap.value,
         )
         RowButton(
             onNextButtonClick = vm::goNextBitMap,
             onPreviousButtonClick = vm::goPreviousBitMap,
-            onDetectFaceButtonClick = vm::detectFace,
+            onLabelImageButtonClick = vm::labelImage,
             index = vm.index.value,
             lastIndex = vm.lastIndex
         )
-    }
-}
-
-@Composable
-fun ImageToDetect(
-    modifier: Modifier = Modifier,
-    bitmap: Bitmap?,
-) {
-    bitmap?.let {
-        Image(
-            modifier = modifier.fillMaxWidth(),
-            bitmap = it.asImageBitmap(),
-            contentDescription = null,
-            contentScale = ContentScale.FillWidth
-        )
+        Text(vm.result.value)
     }
 }
 
@@ -62,7 +48,7 @@ fun RowButton(
     modifier: Modifier = Modifier,
     onNextButtonClick:()->Unit={},
     onPreviousButtonClick:()->Unit={},
-    onDetectFaceButtonClick:()->Unit={},
+    onLabelImageButtonClick:()->Unit={},
     index: Int,
     lastIndex: Int
 ) {
@@ -75,9 +61,24 @@ fun RowButton(
             Icon(imageVector = Icons.AutoMirrored.Filled.ArrowForward, contentDescription = null)
             Text("Next Image")
         }
-        OutlinedButton(onClick = onDetectFaceButtonClick) {
+        OutlinedButton(onClick = onLabelImageButtonClick) {
             Icon(imageVector = Icons.Sharp.Search, contentDescription = null)
-            Text("Detect face")
+            Text("Label Image")
         }
+    }
+}
+
+@Composable
+fun ImageToLabel(
+    modifier: Modifier = Modifier,
+    bitmap: Bitmap?,
+) {
+    bitmap?.let {
+        Image(
+            modifier = modifier.fillMaxWidth(),
+            bitmap = it.asImageBitmap(),
+            contentDescription = null,
+            contentScale = ContentScale.FillWidth
+        )
     }
 }

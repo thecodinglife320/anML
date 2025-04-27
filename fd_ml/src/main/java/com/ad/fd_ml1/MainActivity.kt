@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import com.ad.fd_ml1.face_detection.presentation.FaceDetectionScreen
+import com.ad.fd_ml1.image_label.presentaion.ImageLabelScreen
 import com.ad.fd_ml1.ui.theme.AvalonTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,7 +21,7 @@ class MainActivity : ComponentActivity() {
       setContent {
          AvalonTheme {
             Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-               FaceDetectionScreen(Modifier.padding(innerPadding))
+               ImageLabelScreen(Modifier.padding(innerPadding))
             }
          }
       }
