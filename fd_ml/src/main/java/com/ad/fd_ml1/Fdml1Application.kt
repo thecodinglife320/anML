@@ -1,4 +1,4 @@
-package com.ad.fd_ml1.face_detection
+package com.ad.fd_ml1
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

@@ -27,7 +27,8 @@ class ImageLabelViewModel @Inject constructor(
          "figure4-1.jpg",
          "osamu-tezuka2.jpg",
          "traicay.jpg",
-         "osamu-tezuka.jpg"
+         "osamu-tezuka.jpg",
+         "deo-khau-trang.jpg"
       ).map {
          context.assetsToBitmap(it)
       }
