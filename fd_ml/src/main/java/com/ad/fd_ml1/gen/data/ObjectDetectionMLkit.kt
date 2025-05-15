@@ -1,4 +1,4 @@
-package com.ad.fd_ml1.object_detection.data
+package com.ad.fd_ml1.gen.data
 
 import android.graphics.Bitmap
 import com.google.mlkit.vision.common.InputImage

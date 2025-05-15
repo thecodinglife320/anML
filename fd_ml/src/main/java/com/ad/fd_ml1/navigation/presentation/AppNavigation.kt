@@ -17,20 +17,20 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.ad.fd_ml1.face_detection.presentation.FaceDetectionScreen
-import com.ad.fd_ml1.image_label.presentaion.ImageLabelScreen
+import com.ad.fd_ml1.gen.presentation.MLScreen
+import com.ad.fd_ml1.gen.presentation.MLViewModel
 import com.ad.fd_ml1.navigation.Screen
-import com.ad.fd_ml1.object_detection.presentation.ObjectDetectionScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class) // Required for ModalNavigationDrawer, TopAppBar etc. in Material 3
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppNavigation() {
    val navController = rememberNavController()
@@ -47,30 +47,26 @@ fun AppNavigation() {
          )
       }
    ) {
-      NavHost(navController = navController, startDestination = Screen.FaceDetection.route) {
-         composable(Screen.FaceDetection.route) {
-            FaceDetectionScreen(
+      NavHost(navController = navController, startDestination = Screen.Detection.route) {
+         composable(Screen.Detection.route) {
+            val vm = hiltViewModel<MLViewModel>()
+            MLScreen(
                onDrawerClick = { scope.launch { drawerState.open() } },
+               vm = vm,
             )
-         }
-         composable(Screen.ImageLabel.route) {
-            ImageLabelScreen(onDrawerClick = { scope.launch { drawerState.open() } })
-         }
-         composable(Screen.ObjectDetection.route) {
-            ObjectDetectionScreen(onDrawerClick = { scope.launch { drawerState.open() } })
          }
       }
    }
 }
 
-@OptIn(ExperimentalMaterial3Api::class) // Required for NavigationDrawerItem etc. in Material 3
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppDrawerContent(
    navController: NavController,
    drawerState: DrawerState,
    scope: CoroutineScope
 ) {
-   val items = listOf(Screen.FaceDetection, Screen.ImageLabel, Screen.ObjectDetection)
+   val items = listOf(Screen.Detection)
    val navBackStackEntry by navController.currentBackStackEntryAsState()
    val currentRoute = navBackStackEntry?.destination?.route
 

@@ -59,7 +59,8 @@ dependencies {
    implementation(libs.androidx.material.icons.extended)
    implementation(libs.androidx.navigation.compose)
    implementation(libs.androidx.hilt.navigation.compose)
-   ksp(libs.hilt.android.compiler)
+  implementation(libs.coil.compose)
+  ksp(libs.hilt.android.compiler)
 
    testImplementation(libs.junit)
    androidTestImplementation(libs.androidx.junit)

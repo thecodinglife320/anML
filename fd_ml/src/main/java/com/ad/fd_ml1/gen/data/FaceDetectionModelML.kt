@@ -1,4 +1,4 @@
-package com.ad.fd_ml1.face_detection.data
+package com.ad.fd_ml1.gen.data
 
 import android.graphics.Bitmap
 import com.google.mlkit.vision.common.InputImage
@@ -19,20 +19,20 @@ class FaceDetectionModelML @Inject constructor() {
    private val detector = FaceDetection.getClient(highAccuracyOpts)
 
    suspend fun detectFace(bitmap: Bitmap): List<Face> =
-      suspendCancellableCoroutine{continuation->
+     suspendCancellableCoroutine { continuation ->
 
-         detector.process(InputImage.fromBitmap(bitmap,0))
-            .addOnSuccessListener {
-               continuation.resume(it)
-            }
-            .addOnFailureListener {
-               continuation.resumeWithException(it)
-            }
-
-         continuation.invokeOnCancellation {
-            detector.close()
+       detector.process(InputImage.fromBitmap(bitmap, 0))
+         .addOnSuccessListener {
+           continuation.resume(it)
          }
-      }
+         .addOnFailureListener {
+           continuation.resumeWithException(it)
+         }
+
+       continuation.invokeOnCancellation {
+         detector.close()
+       }
+     }
 
    fun closeDetector() = detector.close()
 }
