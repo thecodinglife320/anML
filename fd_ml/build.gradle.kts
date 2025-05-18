@@ -60,6 +60,8 @@ dependencies {
   implementation(libs.androidx.navigation.compose)
   implementation(libs.androidx.hilt.navigation.compose)
   implementation(libs.coil.compose)
+  implementation(libs.entity.extraction)
+  implementation(libs.digital.ink.recognition)
   ksp(libs.hilt.android.compiler)
   implementation(libs.androidx.camera.compose)
   implementation(libs.androidx.camera.core)

@@ -1,4 +1,4 @@
-package com.ad.fd_ml1.gen.data
+package com.ad.fd_ml1.facede
 
 import android.graphics.Bitmap
 import com.google.mlkit.vision.common.InputImage
@@ -10,7 +10,7 @@ import javax.inject.Inject
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
-class FaceDetectionModelML @Inject constructor() {
+class FaceDetectionModelMlkit @Inject constructor() {
 
    private val highAccuracyOpts = FaceDetectorOptions.Builder()
       .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_FAST)
@@ -19,20 +19,20 @@ class FaceDetectionModelML @Inject constructor() {
    private val detector = FaceDetection.getClient(highAccuracyOpts)
 
    suspend fun detectFace(bitmap: Bitmap): List<Face> =
-     suspendCancellableCoroutine { continuation ->
+      suspendCancellableCoroutine { continuation ->
 
-       detector.process(InputImage.fromBitmap(bitmap, 0))
-         .addOnSuccessListener {
-           continuation.resume(it)
-         }
-         .addOnFailureListener {
-           continuation.resumeWithException(it)
-         }
+         detector.process(InputImage.fromBitmap(bitmap, 0))
+            .addOnSuccessListener {
+               continuation.resume(it)
+            }
+            .addOnFailureListener {
+               continuation.resumeWithException(it)
+            }
 
-       continuation.invokeOnCancellation {
-         detector.close()
-       }
-     }
+         continuation.invokeOnCancellation {
+            detector.close()
+         }
+      }
 
    fun closeDetector() = detector.close()
 }
