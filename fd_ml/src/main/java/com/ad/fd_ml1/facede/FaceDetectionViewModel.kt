@@ -42,6 +42,7 @@ class FaceDetectionViewModel @Inject constructor(
             _bitmap.value = getBitmapFromUrl(context, bitmaps[_index.intValue])
          }
       }
+      Log.i(TAG, "init")
    }
 
    val index: State<Int> get() = _index
@@ -96,5 +97,9 @@ class FaceDetectionViewModel @Inject constructor(
    override fun onCleared() {
       super.onCleared()
       mlkit.closeDetector()
+   }
+
+   companion object {
+      const val TAG = "FaceDetectionvm"
    }
 }

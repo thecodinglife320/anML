@@ -45,6 +45,7 @@ class ObjectDetectionViewModel @Inject constructor(
         _bitmap.value = getBitmapFromUrl(context, bitmaps[_index.intValue])
       }
     }
+     Log.i(TAG, "init")
   }
 
   val index: State<Int> get() = _index

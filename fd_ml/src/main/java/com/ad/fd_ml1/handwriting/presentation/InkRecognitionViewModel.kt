@@ -20,6 +20,8 @@ class InkRecognitionViewModel @Inject constructor(
 
    private var ink: Ink? = null
 
+   var clearLambda: () -> Unit = {}
+
    fun recognize() {
       val stringBuilder = StringBuilder("")
       viewModelScope.launch {
@@ -37,7 +39,12 @@ class InkRecognitionViewModel @Inject constructor(
       println(ink)
    }
 
+   fun onClear() {
+      clearLambda()
+   }
+
    override fun onCleared() {
       repository.closeModel()
    }
+
 }

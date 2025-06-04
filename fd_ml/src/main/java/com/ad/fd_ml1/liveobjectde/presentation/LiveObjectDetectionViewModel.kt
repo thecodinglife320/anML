@@ -64,7 +64,6 @@ class LiveObjectDetectionViewModel @Inject constructor(
          }
 
          val processCameraProvider = ProcessCameraProvider.awaitInstance(appContext)
-
          processCameraProvider.bindToLifecycle(
             lifecycleOwner,
             DEFAULT_BACK_CAMERA,

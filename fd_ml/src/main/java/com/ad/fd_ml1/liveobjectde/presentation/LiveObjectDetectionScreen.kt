@@ -14,7 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
-import com.ad.fd_ml1.liveobjectde.data.ObjectGraphic
+import com.ad.fd_ml1.liveobjectde.data.ObjectGraphicK
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus.Denied
 import com.google.accompanist.permissions.rememberPermissionState
@@ -55,12 +55,12 @@ fun LiveObjectDetectionScreen(
 
          AndroidView(
             factory = {
-               GraphicOverlay(it, null)
+               GraphicOverlayK(it, null)
             },
             update = { go ->
                go.clear()
                detectionResults.forEach {
-                  go.add(ObjectGraphic(go, it))
+                  go.add(ObjectGraphicK(go, it))
                }
                imageSourceInfo?.let {
                   go.setImageSourceInfo(it.imageWidth, it.imageHeight, it.isFlipped)

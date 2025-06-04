@@ -25,11 +25,16 @@ fun InkRecognitionScreen(
                onTouchUp = {
                   vm.onTouchUp(it)
                }
-            )
+            ).also {
+               vm.clearLambda = {
+                  it.clear()
+               }
+            }
          },
-         modifier = Modifier.height(600.dp)
+         modifier = Modifier.height(500.dp)
       )
       OutlinedButton(onClick = vm::recognize) { Text("Recognize") }
+      OutlinedButton(onClick = vm::onClear) { Text("Clear") }
       Text(vm.results.value)
    }
 }

@@ -20,8 +20,8 @@ class ObjectAnalyzer(
    val options =
       ObjectDetectorOptions.Builder()
          .setDetectorMode(ObjectDetectorOptions.STREAM_MODE)
-         //.enableMultipleObjects()
-         //.enableClassification()
+         .enableMultipleObjects()
+         .enableClassification()
          .build()
 
    val objectDetector = ObjectDetection.getClient(options)
