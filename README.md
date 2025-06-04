@@ -14,8 +14,9 @@
 
 ## Screenshots
 
-<!-- Add screenshots here when available! -->
-<!-- ![Screenshot1](path/to/screenshot1.png) -->
+| Face detection                                  | Object Detection                                    | Handwriting Recognition                                  |
+|-------------------------------------------------|-----------------------------------------------------|----------------------------------------------------------|
+| ![Face detection](screenshots/face_detect.webp) | ![Object detection](screenshots/object_detect.webp) | ![Handwriting recognition](screenshots/hand_written.png) |
 
 ## Getting Started
 
